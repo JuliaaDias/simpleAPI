@@ -1,81 +1,76 @@
 const express = require('express');
 
 const app = express();
-
 const port = 3000;
 
 app.use(express.json());
 
-app.listen(port, () => {
-
-console.log(`Servidor rodando em http://localhost:${port}`);
-
-});
-
-const items = [
-
-{ id: 1, name: 'Item 1' },
-
-{ id: 2, name: 'Item 2' },
-
+const contatos = [
+  {
+    id: 1,
+    nome: 'Julia',
+    email: 'julia@email.com'
+  }
 ];
 
-app.get('/items', (req, res) => {
-
-res.json(items);
-
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });
 
-app.post('/items', (req, res) => {
-
-const newItem = req.body;
-
-newItem.id = items.length + 1;
-
-items.push(newItem);
-
-res.status(201).json(newItem);
-
+// Listar contatos
+app.get('/contatos', (req, res) => {
+  res.json(contatos);
 });
 
-app.put('/items/:id', (req, res) => {
+// Criar contato
+app.post('/contatos', (req, res) => {
+  const { nome, email } = req.body;
 
-const id = parseInt(req.params.id, 10);
+  const contato = {
+    id: contatos.length + 1,
+    nome,
+    email
+  };
 
-const itemIndex = items.findIndex(item => item.id === id);
+  contatos.push(contato);
 
-if (itemIndex !== -1) {
-
-const updatedItem = { id, ...req.body };
-
-items[itemIndex] = updatedItem;
-
-res.json(updatedItem);
-
-} else {
-
-res.status(404).send('Item não encontrado');
-
-}
-
+  res.status(201).json(contato);
 });
 
-app.delete('/items/:id', (req, res) => {
+// Atualizar contato
+app.put('/contatos/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
 
-const id = parseInt(req.params.id, 10);
+  const contatoIndex = contatos.findIndex(
+    contato => contato.id === id
+  );
 
-const itemIndex = items.findIndex(item => item.id === id);
+  if (contatoIndex !== -1) {
+    const updatedContato = {
+      id,
+      ...req.body
+    };
 
-if (itemIndex !== -1) {
+    contatos[contatoIndex] = updatedContato;
 
-items.splice(itemIndex, 1);
+    res.json(updatedContato);
+  } else {
+    res.status(404).send('Contato não encontrado');
+  }
+});
 
-res.status(204).send();
+// Excluir contato
+app.delete('/contatos/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
 
-} else {
+  const contatoIndex = contatos.findIndex(
+    contato => contato.id === id
+  );
 
-res.status(404).send('Item não encontrado');
-
-}
-
+  if (contatoIndex !== -1) {
+    contatos.splice(contatoIndex, 1);
+    res.status(204).send();
+  } else {
+    res.status(404).send('Contato não encontrado');
+  }
 });
