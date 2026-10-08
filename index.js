@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -21,7 +21,7 @@ const contatos = [
 ];
 
 app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+console.log(`Servidor rodando na porta ${port}`);
 });
 
 // Listar contatos
@@ -44,6 +44,7 @@ app.post('/contatos', (req, res) => {
 
   res.status(201).json(contato);
 });
+
 
 // Atualizar contato
 app.put('/contatos/:id', (req, res) => {
