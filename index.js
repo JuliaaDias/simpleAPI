@@ -11,7 +11,13 @@ const contatos = [
     nome: 'Julia',
     email: 'julia@email.com',
     senha: 'ju@123'
-  }
+  },
+    {
+    id: 2,
+    nome: 'joao',
+    email: 'joao@email.com',
+    senha: 'joao@123'
+  },
 ];
 
 app.listen(port, () => {
