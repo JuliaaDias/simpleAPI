@@ -9,7 +9,8 @@ const contatos = [
   {
     id: 1,
     nome: 'Julia',
-    email: 'julia@email.com'
+    email: 'julia@email.com',
+    senha: 'ju@123'
   }
 ];
 
@@ -29,7 +30,8 @@ app.post('/contatos', (req, res) => {
   const contato = {
     id: contatos.length + 1,
     nome,
-    email
+    email,
+    senha
   };
 
   contatos.push(contato);
