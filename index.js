@@ -31,7 +31,7 @@ app.get('/contatos', (req, res) => {
 
 // Criar contato
 app.post('/contatos', (req, res) => {
-  const { nome, email } = req.body;
+  const { nome, email, senha } = req.body;
 
   const contato = {
     id: contatos.length + 1,
